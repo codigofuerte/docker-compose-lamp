@@ -23,7 +23,11 @@ RUN apt-get -y update && \
 
 # Install xdebug
 RUN pecl install xdebug-2.7.2 && \
-    docker-php-ext-enable xdebug
+    docker-php-ext-enable xdebug \
+    && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_autostart=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Install redis
 RUN pecl install redis-5.0.2 && \
@@ -40,7 +44,8 @@ RUN docker-php-ext-install pdo_mysql && \
     docker-php-ext-install zip && \
     docker-php-ext-install -j$(nproc) intl && \
     docker-php-ext-install mbstring && \
-    docker-php-ext-install gettext
+    docker-php-ext-install gettext && \
+    docker-php-ext-install opcache
 
 # Install Freetype 
 RUN apt-get -y update && \
