@@ -60,6 +60,15 @@ services:
     ports:
       - "127.0.0.1:${HOST_MACHINE_REDIS_PORT}:6379"
 
+  # keydb:
+  #   container_name: '${COMPOSE_PROJECT_NAME}-keydb'
+  #   image: eqalpha/keydb:latest
+  #   ports:
+  #     - "127.0.0.1:${HOST_MACHINE_REDIS_PORT}:6739"
+  #   volumes:
+  #     - ./config/keydb/redis.conf:/etc/keydb/redis.conf:rw
+  #     - ./data/redis:/data
+    
   rabbitmq:
     container_name: '${COMPOSE_PROJECT_NAME}-rabbitmq'
     # There is a prebuilt RabbitMQ image; see
@@ -81,3 +90,7 @@ services:
       - '5672:5672'
       # HTTP management UI
       - '15672:15672'
+
+volumes:
+  data:
+    driver: local
