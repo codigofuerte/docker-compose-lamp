@@ -26,6 +26,7 @@ libicu-dev && \
 build-essential \
 git \
 curl \
+iputils-ping \
 libonig-dev && \ 
     apt-get -y --no-install-recommends install --fix-missing libcurl4 \
 libcurl4-openssl-dev \
